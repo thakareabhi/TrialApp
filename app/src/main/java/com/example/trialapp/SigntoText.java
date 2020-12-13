@@ -8,6 +8,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.SurfaceView;
 import android.view.Window;
 import android.view.WindowManager;
@@ -25,6 +26,7 @@ public class SigntoText extends Activity implements CvCameraViewListener2 {
     private CameraBridgeViewBase mOpenCvCameraView;
     private Mat mRgba;
     private Mat mGray;
+    private Mat mHsv;
 
 
     private BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
@@ -70,13 +72,17 @@ public class SigntoText extends Activity implements CvCameraViewListener2 {
 
         mGray = new Mat();
         mRgba = new Mat();
-
+        mHsv  = new Mat();
     }
 
     public Mat onCameraFrame(CameraBridgeViewBase.CvCameraViewFrame inputFrame) {
         mRgba = inputFrame.rgba();
         Imgproc.cvtColor(mRgba, mGray, Imgproc.COLOR_BGRA2GRAY);
-        return mGray;
+        Imgproc.equalizeHist(mGray,mHsv);
+        //Imgproc.cvtColor(mRgba, mGray, Imgproc.COLOR_BGR2HSV);
+        //Imgproc.cvtColor(mGray, mHsv, Imgproc.COLOR_BGRA2GRAY);
+        //Imgproc.
+        return mHsv;
 
     }
     public void onCameraViewStopped() {
@@ -107,4 +113,7 @@ public class SigntoText extends Activity implements CvCameraViewListener2 {
         if (mOpenCvCameraView != null)
             mOpenCvCameraView.disableView();
     }
+
+
+
 }
