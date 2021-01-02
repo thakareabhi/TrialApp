@@ -28,7 +28,6 @@ public class SigntoText extends Activity implements CvCameraViewListener2 {
     private Mat mGray;
     private Mat mHsv;
 
-
     private BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
         @Override
         public void onManagerConnected(int status) {
@@ -83,7 +82,6 @@ public class SigntoText extends Activity implements CvCameraViewListener2 {
         //Imgproc.cvtColor(mGray, mHsv, Imgproc.COLOR_BGRA2GRAY);
         //Imgproc.
         return mHsv;
-
     }
     public void onCameraViewStopped() {
     }
